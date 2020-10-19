@@ -29,7 +29,7 @@ $result = $db->query($select);
 </head>
 
 <body>
-    <div class="container1">
+    <div class="container1" style="display: inline-table;">
         <table border="2" style=" border-collapse: collapse ; margin: 20px;">
             <tr>
                 <th>Select</th>
@@ -39,8 +39,8 @@ $result = $db->query($select);
                 <th>City</th>
                 <th>Mobile</th>
                 <th>Email</th>
-                <th>Action</th>
-                <th>Action</th>
+                <th>User Image</th>
+                <th colspan="2">Action</th>
 
             </tr>
             <form action="multidelete.php" method="post">
@@ -55,6 +55,8 @@ $result = $db->query($select);
                         <td><?php echo $row->city; ?></td>
                         <td><?php echo $row->mobile; ?></td>
                         <td><?php echo $row->email; ?></td>
+                        <td><img src="../assets/uploaded_files/<?php echo $row->user_image; ?>" height="30px"></td>
+
                         <td>
                             <a href="show.php?id=<?php echo $row->id ?>">
                                 show</a>

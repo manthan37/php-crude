@@ -5,39 +5,37 @@
     $record = $db->query("SELECT * FROM `users` WHERE id = $id");
     // print_r($record);
     $row = $record->fetch_object();
-    $name = $row->name;
-    $gender = $row->gender;
-    $hobby = $row->hobby;
-    $hobbies = explode(', ', $hobby);
-    $city = $row->city;
-    $mobile = $row->mobile;
-    $email = $row->email;
+    $hobbies = explode(', ', $row->hobby);
+    print_r($hobbies);
 
-    // if (isset($_POST['submit'])) {
-    //     $name = $_POST['name'];
-    //     $gender = $_POST['gender'];
-    //     $hobby = $_POST['hobby'];
-    //     $hobbies = implode(', ', $hobby);
-    //     $city = $_POST['city'];
-    //     $mobile = $_POST['mobile'];
-    //     $email = $_POST['email'];
-    //     $password = $_POST['password'];
+
+    if (isset($_REQUEST['submit'])) {
+        $name = $_REQUEST['name'];
+        $gender = $_REQUEST['gender'];
+        $hobby = $_REQUEST['hobby'];
+        $hobbies = implode(', ', $hobby);
+        $city = $_REQUEST['city'];
+        $mobile = $_REQUEST['mobile'];
+        $email = $_REQUEST['email'];
 
 
 
-    //     $insert = "INSERT INTO `users`(`name`, `gender`, `hobby`, `city`, `mobile`, `email`, `password`) VALUES ('$name','$gender','$hobbies','$city','$mobile','$email','$password')";
-    //     if ($db->query($insert)) {
-    //         $status = "Registration Successful!";
-    //     } else {
-    //         if ($db->error == "Duplicate entry '$email' for key 'email'") {
-    //             $status =  "<p>Already Registered! Email already exists.</p>";
-    //         } else if ($db->error == "Duplicate entry '$mobile' for key 'mobile'") {
-    //             $status = "<p>Already Registered! Mobile number already exists.<?p>";
-    //         } else {
-    //             $status =  "<p>Error: " . $insert . "<br>" . $db->error . "</p>";
-    //         }
-    //     }
-    // } 
+
+        $update = "UPDATE `users` SET 
+            `name` = '$name',
+            `gender` = '$gender',
+            `hobby` = '$hobbies',
+            `city` = '$city',
+            `mobile` = '$mobile',
+            `email` = '$email' WHERE `id` = $id ";
+        echo $update;
+        if ($db->query($update)) {
+            header('location:index.php');
+        } else {
+            echo "something went wrong";
+            echo  "<p>Error: " . $update . "<br>" . $db->error . "</p>";
+        }
+    }
 
     ?>
 
@@ -83,7 +81,7 @@
          }
      </script>
      <link rel="stylesheet" href="style.css">
-     <title>Create user</title>
+     <title>Update user</title>
  </head>
 
  <body>
@@ -95,21 +93,21 @@
              <table>
                  <tr>
                      <td>Name</td>
-                     <td><input type="text" name="name" placeholder="Enter your name" value="<?php echo $name; ?>"></td>
+                     <td><input type="text" name="name" placeholder="Enter your name" value="<?php echo $row->name; ?>"></td>
                  </tr>
 
                  <tr>
                      <td>Gender</td>
                      <td>
-                         <input type="radio" name="gender" id="male" value="male" <?php if ($gender == 'male') {
+                         <input type="radio" name="gender" id="male" value="male" <?php if ($row->gender == 'male') {
                                                                                         echo "checked";
                                                                                     }; ?>>
                          <label for="male">Male</label><br />
-                         <input type="radio" name="gender" id="female" value="female" <?php if ($gender == 'female') {
+                         <input type="radio" name="gender" id="female" value="female" <?php if ($row->gender == 'female') {
                                                                                             echo "checked";
                                                                                         }; ?>>
                          <label for="female">Female</label>
-                         <input type="radio" name="gender" id="other" value="other" <?php if ($gender == 'other') {
+                         <input type="radio" name="gender" id="other" value="other" <?php if ($row->gender == 'other') {
                                                                                         echo "checked";
                                                                                     }; ?>>
                          <label for="other">Other</label>
@@ -151,12 +149,24 @@
                      <td>
                          <select name="city">
                              <option value="">Select city</option>
-                             <option value="surat">Surat</option>
-                             <option value="ahmedabad">Ahmedabad</option>
-                             <option value="rajkot">Rajkot</option>
-                             <option value="gandhinagar">Gandhinagar</option>
-                             <option value="navsari">Navsari</option>
-                             <option value="other">Other</option>
+                             <option value="surat" <?php if ($row->city == 'surat') {
+                                                        echo "selected";
+                                                    } ?>>Surat</option>
+                             <option value="ahmedabad" <?php if ($row->city == 'ahmedabad') {
+                                                            echo "selected";
+                                                        } ?>>Ahmedabad</option>
+                             <option value="rajkot" <?php if ($row->city == 'rajkot') {
+                                                        echo "selected";
+                                                    } ?>>Rajkot</option>
+                             <option value="gandhinagar" <?php if ($row->city == 'gandhinagar') {
+                                                                echo "selected";
+                                                            } ?>>Gandhinagar</option>
+                             <option value="navsari" <?php if ($row->city == 'navsari') {
+                                                            echo "selected";
+                                                        } ?>>Navsari</option>
+                             <option value="other" <?php if ($row->city == 'other') {
+                                                        echo "selected";
+                                                    } ?>>Other</option>
                          </select>
                      </td>
 
@@ -166,14 +176,14 @@
                      <td>Mobile No.</td>
                      <td>
 
-                         <input type="tel" name="mobile" placeholder="Enter mobile number">
-                         <!--pattern="[0-9]{10}||[0-9]{11}"-->
+                         <input type="tel" name="mobile" placeholder="Enter mobile number" value="<?php echo $row->mobile; ?>">
+                         <!--pattern=" [0-9]{10}||[0-9]{11}"-->
                      </td>
                  </tr>
                  <tr>
                      <td>Email</td>
                      <td>
-                         <input type="email" name="email" placeholder="example@gmail.com">
+                         <input type="email" name="email" placeholder="example@gmail.com" value="<?php echo $row->email; ?>">
                      </td>
                  </tr>
                  <tr>

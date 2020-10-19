@@ -2,7 +2,15 @@
 
 include('../connection.php');
 $status = '';
+
 if (isset($_POST['submit'])) {
+
+    $tempname = $_FILES['user_image']['tmp_name'];
+    $filename = $_FILES['user_image']['name'];
+    $destination = '../assets/uploaded_files/' . $filename;
+    move_uploaded_file($tempname, $destination);
+
+
     $name = $_POST['name'];
     $gender = $_POST['gender'];
     $hobby = $_POST['hobby'];
@@ -11,10 +19,9 @@ if (isset($_POST['submit'])) {
     $mobile = $_POST['mobile'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $userimage = $filename;
 
-
-
-    $insert = "INSERT INTO `users`(`name`, `gender`, `hobby`, `city`, `mobile`, `email`, `password`) VALUES ('$name','$gender','$hobbies','$city','$mobile','$email','$password')";
+    $insert = "INSERT INTO `users`(`name`, `gender`, `hobby`, `city`, `mobile`, `email`,`user_image`, `password`) VALUES ('$name','$gender','$hobbies','$city','$mobile','$email','$userimage','$password')";
     if ($db->query($insert)) {
         $status = "Registration Successful!";
         header('location:index.php');
