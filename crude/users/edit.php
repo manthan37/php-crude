@@ -119,13 +119,29 @@
                  <tr>
                      <td>Hobby</td>
                      <td>
-                         <input type="checkbox" name="hobby[]" id="eating" value="eating">
+                         <input type="checkbox" name="hobby[]" id="eating" value="eating" <?php
+                                                                                            if (in_array('eating', $hobbies)) {
+                                                                                                echo "checked";
+                                                                                            }
+                                                                                            ?>>
                          <label for="eating">I love eating!</label>
-                         <input type="checkbox" name="hobby[]" id="dancing" value="dancing">
+                         <input type="checkbox" name="hobby[]" id="dancing" value="dancing" <?php
+                                                                                            if (in_array('dancing', $hobbies)) {
+                                                                                                echo "checked";
+                                                                                            }
+                                                                                            ?>>
                          <label for="dancing">I love dancing!</label><br />
-                         <input type="checkbox" name="hobby[]" id="traveling" value="traveling">
+                         <input type="checkbox" name="hobby[]" id="traveling" value="traveling" <?php
+                                                                                                if (in_array('traveling', $hobbies)) {
+                                                                                                    echo "checked";
+                                                                                                }
+                                                                                                ?>>
                          <label for="traveling">I love traveling!</label>
-                         <input type="checkbox" name="hobby[]" id="coding" value="coding">
+                         <input type="checkbox" name="hobby[]" id="coding" value="coding" <?php
+                                                                                            if (in_array('coding', $hobbies)) {
+                                                                                                echo "checked";
+                                                                                            }
+                                                                                            ?>>
                          <label for="coding">I love coding!</label>
                      </td>
                  </tr>
