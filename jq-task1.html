@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1</title>
+</head>
+
+<body>
+
+    <input type="text" name="textbox" id="textbox" value=''>
+    <button class="1" value="1" onclick="setvalue(this.value)">set 1</button>
+    <button class="2" value="2" onclick="setvalue(this.value)">set 2</button>
+    <button class="3" value="3" onclick="setvalue(this.value)">set 3</button>
+    <button class="4" value="4" onclick="setvalue(this.value)">set 4</button>
+    <button class="5" value="5" onclick="setvalue(this.value)">set 5</button>
+
+    <input type="text" name="" id="randomtext">
+    <input type="submit" value="submit" onclick="random()">
+
+    <script src="jquery-3.5.1.min.js"></script>
+    <script>
+        function setvalue(value) {
+            $('#textbox').val(value);
+
+        }
+        function random() {
+            var bla = $('#randomtext').val();
+            // alert(bla);
+            $('#textbox').val(bla);
+        }
+    </script>
+
+</body>
+
+</html>

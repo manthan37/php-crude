@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container text-center mt-3">
+        <!-- <input type="num" id="in"> -->
+        <input type="number" name="" id="in" onchange="getValue()">
+        <input type="button" onclick="getValue()" class="btn btn-success" value="+">
+    </div>
+    <div class="container mt-2">
+        <div class="wrapper border rounded border-info p-2 text-center">
+            <pre id="message"> </pre>
+
+        </div>
+    </div>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#in').attr("min", "0");
+        });
+        function getValue() {
+            $('.added').remove();
+            var x = $('#in').val();
+
+            if (x <= 0) {
+                $('#message').text("Please enter value grater than 0");
+                console.log(x);
+            }
+            if (x == 1) {
+                $('#message').text("You have entered 1 box");
+                $('.wrapper').append(`<div class="added">
+                <input type="text">
+                <input type="button" class="btn btn-danger" value="&times;">
+            </div>`);
+            }
+            if (x > 1) {
+                $('#message').text("You have entered " + x + " boxes");
+
+                for (i = 0; i < x; i++) {
+                    $('.wrapper').append(`<div class="added">
+                <input type="text">
+                <input type="button" class="btn btn-danger" value="&times;">
+            </div>`);
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

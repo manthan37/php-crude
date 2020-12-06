@@ -167,9 +167,11 @@ if (isset($_POST['submit'])) {
                 <tr>
                     <td>Email</td>
                     <td>
-                        <input type="email" name="email" placeholder="example@gmail.com">
+                        <input type="email" onblur="checkEmail(this.value)" name="email" placeholder="example@gmail.com">
                     </td>
                 </tr>
+                <tr class="email-error"></tr>
+
                 <tr>
                     <td>Profile Image</td>
                     <td><input type="file" id="user_image" name="user_image"></td>
@@ -216,7 +218,33 @@ if (isset($_POST['submit'])) {
             </table>
         </form>
     </div>
+    <script src="../../jQuery-3.5.1.min.js"></script>
+    <script>
+        function checkEmail(email) {
+            $.ajax({
+                url: 'http://localhost:8000/laravel/crude/users/checkemail.php?email=' + email,
+                method: 'GET',
+                success: function(successData) {
+                    if (successData == 0) {
+                        $('.email-error').html(`<td>
+                        <pre> </pre>
+                    </td>
+                    <td><span class="email-message"></span></td>`)
+                        $('.email-message').text("All Okay!");
+                    } else {
+                        $('.email-error').html(`<td>
+                        <pre> </pre>
+                    </td>
+                    <td><span class="email-message"></span></td>`)
+                        $('.email-message').text("Went wrong!");
+                    }
+                },
+                error: function() {
 
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>
